@@ -1,0 +1,40 @@
+.container {
+  margin: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.form-value{
+    position: absolute;
+    left: 1rem;
+    font-size: 1.5rem;
+}
+
+#input-form {
+    position: absolute;
+    z-index: 1;
+    & input {
+        font-size: 1.1rem;
+        // text-transform: uppercase;
+        position: absolute;
+        background: transparent;
+        border: none;
+        // border: 1px solid red;
+    }
+}
+
+input[type=radio]{
+  margin-left: 0px !important;
+  margin-top: 1px !important;
+}
+
+.form-actions{
+  position: fixed;
+  right: 0px;
+  margin: 10px 15px;
+  z-index: 150;
+}
+
+.form-actions .md-24{
+  font-size: 28px;
+}
