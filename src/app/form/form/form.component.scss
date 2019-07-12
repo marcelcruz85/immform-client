@@ -1,5 +1,5 @@
 .container {
-  margin: 2rem;
+  margin: 2rem 0 3rem;
   display: flex;
   justify-content: center;
 }
@@ -21,6 +21,34 @@
         border: none;
         // border: 1px solid red;
     }
+    & textarea {
+        font-size: 1.1rem;
+        // text-transform: uppercase;
+        position: absolute;
+        background: transparent;
+        border: none;
+        // border: 1px solid red;
+    }
+    & .mat-form-field{
+      font-size: 1.1rem;
+      // text-transform: uppercase;
+      position: absolute;
+      background: transparent;
+      border: none;
+      // margin-top: -5px;
+      // border: 1px solid red;
+    }
+
+    & select {
+      font-size: 0.9em;
+      // text-transform: uppercase;
+      position: absolute;
+      background: transparent;
+      border: none;
+      font-family: 'Courier New', Courier, monospace;
+      // margin-top: -5px;
+      // border: 1px solid red;
+    }
 }
 
 input[type=radio]{
@@ -38,3 +66,24 @@ input[type=radio]{
 .form-actions .md-24{
   font-size: 28px;
 }
+
+.loading-top{
+  position: absolute;
+}
+
+.page{
+  position: relative;
+}
+
+
+.paginator{
+position: fixed;
+width: 100%;
+bottom: 0px;
+ text-align: center;
+ background: #000;
+ color: #fff;
+ opacity: 0.6 !important;
+ z-index: 999;
+}
+

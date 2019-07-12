@@ -1,9 +1,10 @@
 
+<mat-progress-bar mode="indeterminate" *ngIf="loading" class="loading-top"></mat-progress-bar>
 <div class="form-actions">
   <button mat-icon-button (click)="downloadForm()" ><mat-icon class="md-24">cloud_download</mat-icon></button><br/>
   <button mat-icon-button (click)="printForm()" ><mat-icon class="md-24">print</mat-icon></button><br/>
-  <button mat-icon-button (click)="zoomIn()"><mat-icon class="md-24">zoom_in</mat-icon></button><br/>
-  <button mat-icon-button (click)="zoomOut()"><mat-icon class="md-24">zoom_out</mat-icon></button><br/>
+  <button mat-icon-button (click)="zoomIn()" [disabled]="zoom >= 1.5"><mat-icon class="md-24">zoom_in</mat-icon></button><br/>
+  <button mat-icon-button (click)="zoomOut()"  [disabled]="zoom < 1"><mat-icon class="md-24">zoom_out</mat-icon></button><br/>
 </div>
 <div class="container">
 
@@ -12,13 +13,14 @@
 <!-- Little trick to center the inputs to the viewer -->
   <div class="form-container">
       <form id="input-form" [formGroup]="myForm" novalidate>
-
       <!-- Cycle through all the inputs -->
       <div *ngFor="let input of inputList; let i=index" [ngSwitch]="input.type">
 
-          <input *ngSwitchCase="'checkbox'"
+          <input *ngSwitchCase="'checkbox'" color="primary"
               [name]="input.name"
+              [style.display]="input.pageNumber !== page?'none':'inherit'"
               type="checkbox"
+              [style.transform]="checkBoxSize"
               [formControlName]="input.name"
               [value]="input.value"
               [ngStyle]="getInputPosition(input)">
@@ -26,28 +28,82 @@
 
           <input *ngSwitchCase="'radio'"
               [name]="input.name"
+              [style.display]="input.pageNumber !== page?'none':'inherit'"
               type="radio"
+              (click)="radioClicked(input)"
               [formControlName]="input.name"
               [value]="input.value"
               [ngStyle]="getInputPosition(input)">
+
+          <textarea *ngSwitchCase="'textarea'"
+              [name]="input.name"
+              [style.display]="input.pageNumber !== page?'none':'inherit'"
+              [formControlName]="input.name"
+              [value]="input.value"
+              [ngStyle]="getInputPosition(input)"></textarea>
+
+          <select *ngSwitchCase="'select'"
+              [name]="input.name"
+              [style.display]="input.pageNumber !== page?'none':'inherit'"
+              [formControlName]="input.name"
+              [value]="input.value"
+              [ngStyle]="getInputPosition(input)">
+              <option *ngFor="let option of input.options"  value="{{option.displayValue}}">{{ option.displayValue }}</option>
+            </select>
+
+          <input *ngSwitchCase="'comb'"
+              [name]="input.name"
+              [style.display]="input.pageNumber !== page?'none':'inherit'"
+              [style.letter-spacing]="input.spacing + 'px'"
+              type="text"
+              [formControlName]="input.name"
+              [value]="input.value"
+              [ngClass]="input.class"
+              [ngStyle]="getInputPosition(input)">
+
+          <input *ngSwitchCase="'date'"
+              [name]="input.name"
+              [style.display]="input.pageNumber !== page?'none':'inherit'"
+              type="text"
+              [formControlName]="input.name"
+              [value]="input.value"
+              [ngClass]="input.class"
+              [ngStyle]="getInputPosition(input)">
+
+            <!-- <mat-form-field *ngSwitchCase="'date'"
+            [ngStyle]="getInputPosition(input)"
+            [style.display]="input.pageNumber !== page?'none':'inherit'">
+                  <input matInput [matDatepicker]="dp3"
+                  [name]="input.name"
+                  [formControlName]="input.name"
+                  [value]="input.value"
+                  disabled>
+                  <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+                  <mat-datepicker #dp3 disabled="false"></mat-datepicker>
+            </mat-form-field> -->
 
           <!-- Insert an input accordingly and get the style/position from the component -->
           <input *ngSwitchDefault
               [name]="input.name"
+              [style.display]="input.pageNumber !== page?'none':'inherit'"
               type="text"
               [formControlName]="input.name"
               [value]="input.value"
+              [ngClass]="input.class"
               [ngStyle]="getInputPosition(input)">
 
       </div>
+    <!-- </div> -->
       </form>
   </div>
 
   <!-- Bind the zoom variable to the viewer component -->
-  <pdf-viewer id="viewer" [src]="pdfSrc" [zoom]="zoom" (after-load-complete)="loadComplete($event)"></pdf-viewer>
+    <!-- <pdf-viewer id="viewer" [src]="pdfSrc" [zoom]="zoom" (after-load-complete)="loadComplete($event)"></pdf-viewer> -->
+  <pdf-viewer id="viewer" [page]="page" [src]="pdfSrc" [zoom]="zoom" (after-load-complete)="loadComplete($event)" [show-all]="false"></pdf-viewer>
 </div>
-
 <!-- Add some button -->
-<!--
-<button mat-mini-fab (click)="zoomOut()">-</button>
-<button mat-fab (click)="zoomIn()">+</button> -->
+<div class="paginator">
+  <button mat-button (click)="prevPage()" [disabled]="page === 1">Prev</button>
+  <span>{{ page }} / {{ totalPages }}</span>
+  <button mat-button (click)="nextPage()" [disabled]="page === totalPages">Next</button>
+</div>

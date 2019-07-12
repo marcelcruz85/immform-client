@@ -38,3 +38,77 @@ button {
     bottom: 6rem;
     right: 2.5rem;
 }
+
+// .mat-checkbox .mat-checkbox-frame {
+//   border-color: transparent;
+// }
+
+// .mat-checkbox-background{
+//   background: #0000
+// }
+// .mat-checkbox-checkmark-path {
+//   stroke: #ffffff !important;
+// }
+
+input[type=radio] {
+  box-sizing: border-box;
+  appearance: none;
+  background: white;
+  cursor: pointer;
+  // outline: 2px solid #333;
+  // border: 3px solid white;
+  // width: 16px;
+  // height: 16px;
+}
+
+input[type=radio]:checked{
+  // box-sizing: border-box;
+  appearance: none;
+  background: url('./assets/checked_bg.jpg') no-repeat !important;
+  background-position: 1px 0px !important;
+  background-size: 90% !important;
+}
+
+input[type=checkbox] {
+  box-sizing: border-box;
+  appearance: none;
+  background: white;
+  cursor: pointer;
+  margin: 0px !important;
+  // outline: 2px solid #333;
+  // border: 3px solid white;
+  // width: 16px;
+  // height: 16px;
+}
+
+input[type=checkbox]:checked{
+  // box-sizing: border-box;
+  appearance: none;
+  background: url('./assets/checked_bg.jpg') no-repeat !important;
+  background-position: 1px 1px !important;
+  background-size: 90% !important;
+  margin: 0px !important;
+}
+
+input{
+  font-family: 'Courier New', Courier, monospace;
+  // font-weight: bold;
+}
+
+.comb{
+  padding-left: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  // font-weight: bold;
+}
+.zoom_1 .comb{
+  padding-left: 3px;
+}
+
+.zoom_1\.25 .comb{
+  padding-left: 5px !important;
+}
+.zoom_1\.50 .comb{
+  padding-left: 8px !important;
+}
+
+::-webkit-inner-spin-button { display: none; }
